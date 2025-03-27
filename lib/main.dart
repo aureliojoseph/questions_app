@@ -1,31 +1,77 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
+import './questions.dart';
+import './answers.dart';
 
 main() {
   return runApp(QuestionsApp());
 }
 
-class QuestionsApp extends StatelessWidget {
-  const QuestionsApp({super.key});
+class QuestionsAppState extends State<QuestionsApp> {
+  var selectedAnswer = 0;
+
+  void answerQuestion() {
+    setState(() {
+      selectedAnswer++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final questions = [
-      'What\'s your favorite color?',
-      'What\'s your favorite animal?',
+      {
+        'question': 'What\'s your favorite color?',
+        'answers': ['Black', 'Red', 'Green', 'White'],
+      },
+      {
+        'question': 'What\'s your favorite animal?',
+        'answers': ['Rabbit', 'Snake', 'Elephant', 'Lion'],
+      },
+      {
+        'question': 'What\'s your favorite food?',
+        'answers': ['Pizza', 'Pasta', 'Burger', 'Noodles'],
+      },
+      {
+        'question': 'What\'s your favorite programming language?',
+        'answers': ['Python', 'Java', 'Dart', 'JavaScript'],
+      },
     ];
+
+    List<Widget> answers = [];
+
+    for (String answer in questions[selectedAnswer].cast()['answers']) {
+      answers.add(Answers(answer, answerQuestion));
+    }
 
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text('Questions')),
+        appBar: AppBar(
+          title: Text('Questions'),
+          backgroundColor: Colors.black87,
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+          centerTitle: true,
+        ),
         body: Column(
           children: <Widget>[
-            Text(questions[0]),
-            ElevatedButton(onPressed: null, child: Text('Answer 1')),
-            ElevatedButton(onPressed: null, child: Text('Answer 2')),
-            ElevatedButton(onPressed: null, child: Text('Answer 3')),
+            Questions(questions[selectedAnswer]['question'].toString()),
+            ...answers,
           ],
         ),
       ),
     );
+  }
+}
+
+class QuestionsApp extends StatefulWidget {
+  const QuestionsApp({super.key});
+
+  @override
+  QuestionsAppState createState() {
+    return QuestionsAppState();
   }
 }
