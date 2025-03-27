@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class QuestionWidget extends StatelessWidget {
-  const QuestionWidget(this.text, {super.key});
+class QuestionsWidget extends StatelessWidget {
+  const QuestionsWidget(this.text, {super.key});
   final String text;
 
   @override

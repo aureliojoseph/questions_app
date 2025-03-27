@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'data/questions_data.dart';
-import 'widgets/question_widget.dart';
-import 'widgets/answer_widget.dart';
+import 'widgets/questions_widget.dart';
+import 'widgets/answers_widget.dart';
+import 'widgets/results_widget.dart';
 
 main() {
   return runApp(QuestionsApp());
@@ -45,15 +46,15 @@ class QuestionsAppState extends State<QuestionsApp> {
             isQuestionAvailable
                 ? Column(
                   children: <Widget>[
-                    QuestionWidget(
+                    QuestionsWidget(
                       questions[selectedAnswer]['question'].toString(),
                     ),
                     ...answers.map(
-                      (answer) => AnswerWidget(answer, answerQuestion),
+                      (answer) => AnswersWidget(answer, answerQuestion),
                     ),
                   ],
                 )
-                : null,
+                : ResultsWidget('You did it!'),
       ),
     );
   }
