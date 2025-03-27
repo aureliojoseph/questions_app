@@ -5,7 +5,8 @@ Welcome to the Questions App! This is a simple Flutter application that allows u
 ## Features
 
 - Users can view a list of questions.
-- Users can select and answer to a question and view their answers.
+- Users can select and answer to a question and get a result compliment.
+- Emoji feedback is displayed based on the user's result.
 - Simple and intuitive user interface.
 
 ## Getting Started
@@ -33,6 +34,14 @@ To get started with the project, follow these steps:
 
 - Flutter SDK
 - Dart SDK
+
+## Release Notes
+
+### v1.0.0
+- Initial release of the Questions App.
+- Added emoji feedback for results based on the user's score. 🎉
+- Organized project structure for better scalability and maintainability.
+- Improved UI with a clean and modern design.
 
 ## Contributing
 
