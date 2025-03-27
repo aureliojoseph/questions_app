@@ -12,7 +12,7 @@ class QuestionsFormWidget extends StatelessWidget {
 
   final List questionsData;
   final int selectedAnswer;
-  final void Function() answerQuestion;
+  final void Function(int) answerQuestion;
 
   bool get isQuestionAvailable {
     return selectedAnswer < questionsData.length;
@@ -20,15 +20,18 @@ class QuestionsFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> answers =
-        isQuestionAvailable
-            ? questionsData[selectedAnswer].cast()['answers']
-            : [];
+    List<Map<String, Object>> answers =
+        isQuestionAvailable ? questionsData[selectedAnswer]['answers'] : null;
 
     return Column(
       children: <Widget>[
         QuestionsWidget(questionsData[selectedAnswer]['question'].toString()),
-        ...answers.map((answer) => AnswersWidget(answer, answerQuestion)),
+        ...answers.map(
+          (answer) => AnswersWidget(
+            answer['text'] as String,
+            () => answerQuestion(answer['score'] as int),
+          ),
+        ),
       ],
     );
   }
