@@ -9,11 +9,13 @@ main() {
 
 class QuestionsAppState extends State<QuestionsApp> {
   var selectedAnswer = 0;
+  var totalScore = 0;
 
-  void answerQuestion() {
+  void answerQuestion(int score) {
     if (isQuestionAvailable) {
       setState(() {
         selectedAnswer++;
+        totalScore += score;
       });
     }
   }
@@ -43,7 +45,7 @@ class QuestionsAppState extends State<QuestionsApp> {
                   questionsData: questionsData,
                   selectedAnswer: selectedAnswer,
                 )
-                : ResultsWidget('You did it!'),
+                : ResultsWidget(totalScore),
       ),
     );
   }
