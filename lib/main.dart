@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'data/questions_data.dart';
-import 'widgets/questions_widget.dart';
-import 'widgets/answers_widget.dart';
+import 'widgets/questions_form_widget.dart';
 import 'widgets/results_widget.dart';
 
 main() {
@@ -25,11 +24,6 @@ class QuestionsAppState extends State<QuestionsApp> {
 
   @override
   Widget build(BuildContext context) {
-    final questions = questionsData;
-
-    List<String> answers =
-        isQuestionAvailable ? questions[selectedAnswer].cast()['answers'] : [];
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -44,15 +38,10 @@ class QuestionsAppState extends State<QuestionsApp> {
         ),
         body:
             isQuestionAvailable
-                ? Column(
-                  children: <Widget>[
-                    QuestionsWidget(
-                      questions[selectedAnswer]['question'].toString(),
-                    ),
-                    ...answers.map(
-                      (answer) => AnswersWidget(answer, answerQuestion),
-                    ),
-                  ],
+                ? QuestionsFormWidget(
+                  answerQuestion: answerQuestion,
+                  questionsData: questionsData,
+                  selectedAnswer: selectedAnswer,
                 )
                 : ResultsWidget('You did it!'),
       ),
