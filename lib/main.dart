@@ -20,6 +20,13 @@ class QuestionsAppState extends State<QuestionsApp> {
     }
   }
 
+  void resetQuestionsForm() {
+    setState(() {
+      selectedAnswer = 0;
+      totalScore = 0;
+    });
+  }
+
   bool get isQuestionAvailable {
     return selectedAnswer < questionsData.length;
   }
@@ -45,7 +52,7 @@ class QuestionsAppState extends State<QuestionsApp> {
                   questionsData: questionsData,
                   selectedAnswer: selectedAnswer,
                 )
-                : ResultsWidget(totalScore),
+                : ResultsWidget(totalScore, resetQuestionsForm),
       ),
     );
   }
