@@ -11,16 +11,23 @@ class QuestionsAppState extends State<QuestionsApp> {
   var selectedAnswer = 0;
 
   void answerQuestion() {
-    setState(() {
-      selectedAnswer++;
-    });
+    if (isQuestionAvailable) {
+      setState(() {
+        selectedAnswer++;
+      });
+    }
+  }
+
+  bool get isQuestionAvailable {
+    return selectedAnswer < questionsData.length;
   }
 
   @override
   Widget build(BuildContext context) {
     final questions = questionsData;
 
-    List<String> answers = questions[selectedAnswer].cast()['answers'];
+    List<String> answers =
+        isQuestionAvailable ? questions[selectedAnswer].cast()['answers'] : [];
 
     return MaterialApp(
       home: Scaffold(
@@ -34,12 +41,19 @@ class QuestionsAppState extends State<QuestionsApp> {
           ),
           centerTitle: true,
         ),
-        body: Column(
-          children: <Widget>[
-            QuestionWidget(questions[selectedAnswer]['question'].toString()),
-            ...answers.map((answer) => AnswerWidget(answer, answerQuestion)),
-          ],
-        ),
+        body:
+            isQuestionAvailable
+                ? Column(
+                  children: <Widget>[
+                    QuestionWidget(
+                      questions[selectedAnswer]['question'].toString(),
+                    ),
+                    ...answers.map(
+                      (answer) => AnswerWidget(answer, answerQuestion),
+                    ),
+                  ],
+                )
+                : null,
       ),
     );
   }
