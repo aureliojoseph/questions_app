@@ -8,27 +8,27 @@ main() {
 }
 
 class QuestionsAppState extends State<QuestionsApp> {
-  var selectedAnswer = 0;
-  var totalScore = 0;
+  var _selectedAnswer = 0;
+  var _totalScore = 0;
 
-  void answerQuestion(int score) {
+  void _answerQuestion(int score) {
     if (isQuestionAvailable) {
       setState(() {
-        selectedAnswer++;
-        totalScore += score;
+        _selectedAnswer++;
+        _totalScore += score;
       });
     }
   }
 
-  void resetQuestionsForm() {
+  void _resetQuestionsForm() {
     setState(() {
-      selectedAnswer = 0;
-      totalScore = 0;
+      _selectedAnswer = 0;
+      _totalScore = 0;
     });
   }
 
   bool get isQuestionAvailable {
-    return selectedAnswer < questionsData.length;
+    return _selectedAnswer < questionsData.length;
   }
 
   @override
@@ -48,11 +48,11 @@ class QuestionsAppState extends State<QuestionsApp> {
         body:
             isQuestionAvailable
                 ? QuestionsFormWidget(
-                  answerQuestion: answerQuestion,
+                  answerQuestion: _answerQuestion,
                   questionsData: questionsData,
-                  selectedAnswer: selectedAnswer,
+                  selectedAnswer: _selectedAnswer,
                 )
-                : ResultsWidget(totalScore, resetQuestionsForm),
+                : ResultsWidget(_totalScore, _resetQuestionsForm),
       ),
     );
   }
